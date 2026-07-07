@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  /* Wayang Color Palette */
+  --cream: #D28E22;
+  --rust: #A13204;
+  --brown: #8E4903;
+  --forest: #5E3F02;
+  --dark: #451100;
+  --darkest: #180A02;
+
+  --bg: #F5EDD8;
+  --bg-alt: #EDE0C4;
+  --text: #180A02;
+  --text-muted: #5E3F02;
+  --accent: #A13204;
+  --accent2: #D28E22;
+  --white: #FDF6E9;
+
+  --grid: 1px solid rgba(24, 10, 2, 0.12);
+  --thick-line: 3px solid var(--darkest);
+  --thin-line: 1px solid var(--darkest);
+
+  --sans: 'Space Grotesk', system-ui, sans-serif;
+  --mono: 'Space Mono', monospace;
+
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Spacing scale */
+  --sp-xs: 8px;
+  --sp-sm: 16px;
+  --sp-md: 24px;
+  --sp-lg: 40px;
+  --sp-xl: 60px;
+  --sp-2xl: 80px;
+  --sp-3xl: 120px;
+
+  /* Breakpoints (used in JS via CSS custom props) */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--sans);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--sans);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+h1 {
+  font-size: clamp(2.4rem, 8vw, 7rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+}
+
+h3 {
+  font-size: clamp(1.1rem, 2vw, 1.75rem);
+}
+
+h4 {
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  display: inline-block;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 60px);
+}
+
+section {
+  position: relative;
+}
+
+.swiss-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--darkest);
+}
+
+.swiss-rule-thick {
+  width: 100%;
+  height: 3px;
+  background: var(--darkest);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--darkest);
+  color: var(--cream);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateX(-100%);
+  transition: transform var(--transition);
+  z-index: 0;
+}
+
+.btn-primary:hover::after {
+  transform: translateX(0);
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary svg {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--darkest);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 2px solid var(--darkest);
+  padding: 10px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.btn-outline:hover {
+  background: var(--darkest);
+  color: var(--cream);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-cream {
+  color: var(--cream);
+}
+
+.bg-dark {
+  background: var(--darkest);
+}
+
+.bg-rust {
+  background: var(--accent);
+}
+
+.outline-text {
+  -webkit-text-stroke: 2px var(--accent);
+  color: transparent;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scrollAnim {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-dot {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.8);
+    opacity: 0.5;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.delay-1 {
+  transition-delay: 0.1s;
+}
+
+.delay-2 {
+  transition-delay: 0.2s;
+}
+
+.delay-3 {
+  transition-delay: 0.3s;
+}
+
+.delay-4 {
+  transition-delay: 0.4s;
+}
+
+.delay-5 {
+  transition-delay: 0.5s;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none;
+  }
+
+  .show-mobile {
+    display: block;
+  }
+}
+
+.section-pad {
+  padding-top: clamp(60px, 10vw, 120px);
+  padding-bottom: clamp(60px, 10vw, 120px);
+}
+
+.leaflet-container {
+  font-family: var(--sans) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0 !important;
+  background: var(--darkest) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--cream) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--darkest) !important;
+}
+
+.leaflet-popup-content {
+  margin: 14px 18px !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--darkest) !important;
+  color: var(--cream) !important;
+  border-color: rgba(210, 142, 34, 0.3) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--accent) !important;
+}
