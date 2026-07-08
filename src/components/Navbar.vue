@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import imgLogo from '../assets/logo.png'
 
 const isScrolled = ref(false)
 const menuOpen   = ref(false)
@@ -30,10 +31,12 @@ onUnmounted(()=> window.removeEventListener('scroll', onScroll))
     aria-label="Menu utama"
   >
     <div class="nav-inner container">
-      <a href="#" class="nav-logo" @click="closeMenu" aria-label="Wayang Nusantara — ke atas">
-        <span class="logo-line" aria-hidden="true"></span>
-        <span class="logo-text">WAYANG</span>
-        <span class="logo-sub">BUDAYA INDONESIA</span>
+      <a href="#" class="nav-logo" @click="closeMenu" aria-label="Wasantara — ke atas">
+        <img :src="imgLogo" alt="Wasantara Logo" class="navbar-logo-img" />
+        <div class="nav-logo-text-group">
+          <span class="logo-text">WASANTARA</span>
+          <span class="logo-sub">PLATFORM EDUKASI</span>
+        </div>
       </a>
 
       <ul class="nav-links hide-mobile" role="list">
@@ -97,11 +100,18 @@ onUnmounted(()=> window.removeEventListener('scroll', onScroll))
 }
 
 .nav-logo {
-  display: flex; flex-direction: column; text-decoration: none; gap: 2px; flex-shrink: 0;
+  display: flex; align-items: center; text-decoration: none; gap: 12px; flex-shrink: 0;
 }
-.logo-line   { display: block; width: 100%; height: 2px; background: var(--cream); margin-bottom: 2px; }
+.nav-logo-text-group {
+  display: flex; flex-direction: column; gap: 2px;
+}
 .logo-text   { font-family: var(--mono); font-size: clamp(0.9rem, 1.5vw, 1.1rem); font-weight: 700; letter-spacing: 0.25em; color: var(--white); line-height: 1; }
 .logo-sub    { font-family: var(--mono); font-size: 0.42rem; letter-spacing: 0.18em; color: var(--cream); text-transform: uppercase; }
+.navbar-logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+}
 
 .nav-links   { display: flex; list-style: none; gap: 0; flex: 1; justify-content: center; }
 

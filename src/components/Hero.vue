@@ -15,7 +15,7 @@ function onMouseMove(e) {
     class="hero"
     id="hero"
     @mousemove="onMouseMove"
-    aria-label="Pengantar Wayang Nusantara"
+    aria-label="Pengantar Wasantara"
   >
     <div class="hero-grid-bg" aria-hidden="true">
       <div v-for="i in 12" :key="i" class="grid-col"></div>
@@ -28,9 +28,9 @@ function onMouseMove(e) {
         <p class="label reveal">No. 001 — Warisan Dunia UNESCO</p>
 
         <h1 class="hero-title reveal delay-1">
-          <span class="tl">WAYANG</span>
-          <span class="tl outline">KULIT</span>
-          <span class="tl gold">NUSANTARA</span>
+          <span class="tl">EDUKASI</span>
+          <span class="tl outline">WAYANG</span>
+          <span class="tl gold">WASANTARA</span>
         </h1>
 
         <div class="hero-desc reveal delay-2">

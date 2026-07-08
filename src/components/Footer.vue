@@ -1,4 +1,6 @@
 <script setup>
+import imgLogo from '../assets/logo.png'
+
 const navLinks = [
   { label:'Tentang',   href:'#about' },
   { label:'Jenis',     href:'#types' },
@@ -15,10 +17,8 @@ const navLinks = [
   <footer class="footer" id="footer" role="contentinfo">
     <div class="footer-top">
       <div class="container footer-top-inner">
-        <div class="footer-logo" aria-label="Wayang Nusantara">
-          <span class="fl-rule" aria-hidden="true"></span>
-          <span class="fl-text">WAYANG</span>
-          <span class="fl-sub">Budaya Nusantara</span>
+        <div class="footer-logo" aria-label="Wasantara">
+          <img :src="imgLogo" alt="Wasantara Logo" class="footer-logo-img" />
         </div>
         <p class="footer-tagline">Melestarikan seni budaya Indonesia<br>untuk generasi yang akan datang.</p>
         <a href="#hero" class="scroll-top-btn" aria-label="Kembali ke atas halaman">
@@ -72,8 +72,8 @@ const navLinks = [
 
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p class="copyright"><span class="mono">©2025</span> Wayang Nusantara — Platform Budaya Indonesia</p>
-        <p class="made-with">Dibuat dengan <span class="text-cream" aria-hidden="true">♥</span><span class="visually-hidden">cinta</span> untuk pelestarian budaya bangsa</p>
+        <p class="copyright"><span class="mono">©2026</span> Wasantara : Platform Edukasi Wayang Interaktif Modern</p>
+        <p class="made-with">Dibuat dengan <span class="text-cream" aria-hidden="true">♥</span><span class="visually-hidden">cinta</span> untuk pelestarian budaya bangsa melalui desain (Culture Verse)</p>
       </div>
     </div>
   </footer>
@@ -86,9 +86,12 @@ const navLinks = [
 .footer-top-inner { display:grid; grid-template-columns:1fr 1fr auto; gap:clamp(24px,4vw,60px); align-items:end; }
 
 .footer-logo { display:flex; flex-direction:column; gap:4px; }
-.fl-rule { display:block; width:40px; height:3px; background:var(--accent); margin-bottom:8px; }
-.fl-text { font-family:var(--mono); font-size:clamp(1.4rem,3vw,2rem); font-weight:700; letter-spacing:0.2em; color:var(--white); line-height:1; }
-.fl-sub  { font-family:var(--mono); font-size:0.58rem; letter-spacing:0.2em; color:rgba(210,142,34,0.6); text-transform:uppercase; }
+.footer-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 8px;
+}
 
 .footer-tagline { font-size:clamp(0.82rem,1.4vw,0.9rem); line-height:1.7; color:rgba(245,237,216,0.5); }
 

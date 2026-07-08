@@ -122,7 +122,7 @@ onMounted(() => {
   }).addTo(mapInstance)
 
   L.control.attribution({ position: 'bottomright', prefix: false })
-    .addAttribution('© OSM · CARTO · Wayang Nusantara')
+    .addAttribution('© OSM · CARTO · Wasantara')
     .addTo(mapInstance)
 
   regions.forEach(region => {

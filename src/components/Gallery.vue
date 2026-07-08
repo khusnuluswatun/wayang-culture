@@ -1,7 +1,20 @@
 <script setup>
 import { ref } from 'vue'
+import imgArjuna       from '../assets/arjuna.png'
+import imgSemar        from '../assets/semar.png'
+import imgOrang        from '../assets/wayang-orang.jpg'
+import imgBg           from '../assets/background-wayang.jpg'
+import imgPertunjukan1 from '../assets/pertunjukan-wayang.jfif'
+import imgPertunjukan2 from '../assets/pertunjukan-wayang2.jfif'
+import imgPertunjukan3 from '../assets/pertunjukan-wayang3.jpg'
+import imgPertunjukan4 from '../assets/pertunjukan-wayang4.jpg'
+import imgPertunjukan5 from '../assets/pertunjukan-wayang5.jpg'
+import imgGolek1       from '../assets/wayang-golek.jpg'
+import imgGolek2       from '../assets/wayang-golek2.jpg'
+import imgGolek3       from '../assets/wayang-golek3.png'
+import imgGolek4       from '../assets/wayang-golek4.jfif'
 
-const categories = ['Semua', 'Wayang Kulit', 'Wayang Golek', 'Pertunjukan', 'Detail']
+const categories = ['Semua', 'Wayang Kulit', 'Wayang Golek', 'Pertunjukan']
 const activeFilter = ref('Semua')
 
 const galleryItems = [
@@ -11,63 +24,99 @@ const galleryItems = [
     category: 'Wayang Kulit',
     size: 'tall',
     bg: '#A13204',
+    img: imgArjuna,
     desc: 'Tokoh Arjuna dengan detail ukiran emas yang memukau'
   },
   {
     id: 2,
-    title: 'Pertunjukan Malam',
+    title: 'Panggung Semalam Suntuk',
     category: 'Pertunjukan',
     size: 'wide',
     bg: '#451100',
-    desc: 'Suasana pertunjukan wayang kulit di malam hari'
+    img: imgPertunjukan3,
+    desc: 'Panggung pertunjukan wayang kulit berlangsung dari senja hingga fajar'
   },
   {
     id: 3,
-    title: 'Detail Tatahan',
-    category: 'Detail',
-    size: 'normal',
-    bg: '#8E4903',
-    desc: 'Ornamen tatahan kulit kerbau yang sangat halus'
-  },
-  {
-    id: 4,
     title: 'Wayang Golek Sunda',
     category: 'Wayang Golek',
     size: 'normal',
     bg: '#5E3F02',
-    desc: 'Boneka wayang golek khas tanah Sunda'
+    img: imgGolek3,
+    desc: 'Boneka wayang golek tiga dimensi khas tanah Sunda'
+  },
+  {
+    id: 4,
+    title: 'Kelir Malam',
+    category: 'Pertunjukan',
+    size: 'normal',
+    bg: '#180A02',
+    img: imgPertunjukan1,
+    desc: 'Bayangan wayang pada kelir yang magis di malam hari'
   },
   {
     id: 5,
-    title: 'Bayangan Kelir',
-    category: 'Pertunjukan',
-    size: 'tall',
-    bg: '#180A02',
-    desc: 'Bayangan wayang pada kelir yang magis'
-  },
-  {
-    id: 6,
     title: 'Semar Punakawan',
     category: 'Wayang Kulit',
-    size: 'normal',
-    bg: '#D28E22',
+    size: 'tall',
+    bg: '#8E4903',
+    img: imgSemar,
     desc: 'Semar, punakawan yang penuh hikmat dan humor'
   },
   {
+    id: 6,
+    title: 'Ukiran Golek',
+    category: 'Wayang Golek',
+    size: 'normal',
+    bg: '#5E3F02',
+    img: imgGolek2,
+    desc: 'Detail ukiran dan warna halus boneka wayang golek'
+  },
+  {
     id: 7,
-    title: 'Tangan Dalang',
-    category: 'Detail',
+    title: 'Cahaya Blencong',
+    category: 'Pertunjukan',
     size: 'wide',
-    bg: '#8E4903',
-    desc: 'Keahlian tangan dalang memainkan wayang'
+    bg: '#451100',
+    img: imgPertunjukan4,
+    desc: 'Cahaya blencong menerangi kelir dan menghidupkan bayangan wayang'
   },
   {
     id: 8,
-    title: 'Gamelan Pengiring',
+    title: 'Wayang Orang',
     category: 'Pertunjukan',
     size: 'normal',
+    bg: '#6B2800',
+    img: imgOrang,
+    desc: 'Pertunjukan wayang orang dengan kostum dan tata rias lengkap'
+  },
+
+  {
+    id: 10,
+    title: 'Adegan Gara-Gara',
+    category: 'Pertunjukan',
+    size: 'normal',
+    bg: '#180A02',
+    img: imgPertunjukan2,
+    desc: 'Adegan punakawan penuh humor menyegarkan suasana pertunjukan'
+  },
+  {
+    id: 11,
+    title: 'Golek Klasik',
+    category: 'Wayang Golek',
+    size: 'normal',
+    bg: '#5E3F02',
+    img: imgGolek1,
+    desc: 'Wayang golek gaya klasik dengan warna khas tradisi Sunda'
+  },
+  {
+    id: 12,
+    title: 'Pagelaran Agung',
+    category: 'Pertunjukan',
+    size: 'wide',
     bg: '#451100',
-    desc: 'Ensembel gamelan pengiring pertunjukan wayang'
+    img: imgPertunjukan5,
+    desc: 'Pagelaran wayang kulit skala besar dengan ratusan penonton'
   },
 ]
 
@@ -129,13 +178,13 @@ function closeLightbox() {
       </div>
     </div>
 
-    <div class="container gallery-grid-wrap">
+    <div class="container gallery-grid-wrap reveal delay-3">
       <div class="gallery-grid">
         <div
           v-for="(item, i) in filtered"
           :key="item.id"
-          class="gallery-item reveal"
-          :class="[`item-${item.size}`, `delay-${i % 4 + 1}`]"
+          class="gallery-item"
+          :class="[`item-${item.size}`]"
           @click="openLightbox(item)"
           :aria-label="item.title"
           role="button"
@@ -143,10 +192,7 @@ function closeLightbox() {
           @keypress.enter="openLightbox(item)"
         >
           <div class="gallery-visual" :style="{ background: item.bg }">
-            <div class="gallery-pattern" aria-hidden="true">
-              <div v-for="j in 4" :key="j" class="gp-line" :style="{ top: `${j * 25}%` }"></div>
-              <div v-for="j in 4" :key="`v${j}`" class="gp-vline" :style="{ left: `${j * 25}%` }"></div>
-            </div>
+            <img v-if="item.img" :src="item.img" :alt="item.title" class="gallery-img" />
             <div class="gallery-overlay">
               <div class="go-content">
                 <h4 class="go-title">{{ item.title }}</h4>
@@ -168,10 +214,7 @@ function closeLightbox() {
       <div v-if="lightboxOpen" class="lightbox" @click.self="closeLightbox" role="dialog" aria-modal="true">
         <div class="lightbox-panel">
           <div class="lightbox-visual" :style="{ background: lightboxItem?.bg }">
-            <div class="lv-pattern" aria-hidden="true">
-              <div v-for="j in 6" :key="j" class="lp-line" :style="{ top: `${j * 17}%` }"></div>
-              <div v-for="j in 6" :key="`v${j}`" class="lp-vline" :style="{ left: `${j * 17}%` }"></div>
-            </div>
+            <img v-if="lightboxItem?.img" :src="lightboxItem?.img" :alt="lightboxItem?.title" class="lv-img" />
             <span class="lv-title">{{ lightboxItem?.title }}</span>
           </div>
           <div class="lightbox-info">
@@ -303,24 +346,20 @@ function closeLightbox() {
   transform: scale(1.02);
 }
 
-.gallery-pattern {
+.gallery-img {
   position: absolute;
   inset: 0;
-  opacity: 0.1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.5s ease;
+  filter: saturate(0.9);
 }
 
-.gp-line {
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  background: rgba(255,255,255,0.5);
-}
-
-.gp-vline {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 1px;
-  background: rgba(255,255,255,0.5);
+.gallery-item:hover .gallery-img {
+  transform: scale(1.06);
+  filter: saturate(1.1);
 }
 
 .gallery-overlay {
@@ -401,39 +440,31 @@ function closeLightbox() {
 .lightbox-visual {
   position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-start;
   overflow: hidden;
+  min-height: 280px;
 }
 
-.lv-pattern {
+.lv-img {
   position: absolute;
   inset: 0;
-  opacity: 0.1;
-}
-
-.lp-line {
-  position: absolute;
-  left: 0; right: 0;
-  height: 1px;
-  background: rgba(255,255,255,0.5);
-}
-
-.lp-vline {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 1px;
-  background: rgba(255,255,255,0.5);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .lv-title {
   font-family: var(--mono);
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.2);
-  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.85);
   position: relative;
   z-index: 1;
-  padding: 20px;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.45);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .lightbox-info {

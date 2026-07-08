@@ -1,13 +1,20 @@
 <script setup>
 import { ref } from 'vue'
 
+import wayangKulit from '../assets/wayang-kulit.avif'
+import wayangGolek from '../assets/wayang-golek2.jpg'
+import wayangBeber from '../assets/wayang-beber.jpg'
+import wayangKlitik from '../assets/wayang-klitik.webp'
+import wayangOrang from '../assets/wayang-orang.jpg'
+import wayangSasak from '../assets/wayang-sasak.jpg'
+
 const types = [
-  { id:'kulit',  name:'Wayang Kulit',  origin:'Jawa & Bali',        era:'→ Abad 9 M',  desc:'Terbuat dari kulit kerbau yang ditatah. Dimainkan di balik layar putih dengan sorot lampu. Tokoh utama dari epik Mahabharata dan Ramayana.',  color:'#A13204', accent:'#D28E22' },
-  { id:'golek',  name:'Wayang Golek',  origin:'Jawa Barat',         era:'→ Abad 16 M', desc:'Boneka tiga dimensi dari kayu. Cerita berdasarkan kisah Islam seperti Menak. Populer di kalangan masyarakat Sunda dan Betawi.',               color:'#8E4903', accent:'#D28E22' },
-  { id:'beber',  name:'Wayang Beber',  origin:'Pacitan & Wonosari',  era:'→ Abad 14 M', desc:'Seni paling kuno. Cerita digambar pada lembaran kertas panjang yang dibentangkan (beber). Hampir punah dan sangat langka.',                  color:'#5E3F02', accent:'#A13204' },
-  { id:'klitik', name:'Wayang Klitik', origin:'Jawa Timur',          era:'→ Abad 17 M', desc:'Wayang gepeng dari kayu tipis. Berbunyi "kletik-kletik" saat dimainkan. Menceritakan kisah Damarwulan dan Panji.',                            color:'#451100', accent:'#8E4903' },
-  { id:'orang',  name:'Wayang Orang',  origin:'Jawa Tengah',         era:'→ Abad 18 M', desc:'Pertunjukan wayang dimainkan oleh manusia dengan kostum dan tata rias lengkap. Menggabungkan tari, drama, dan gamelan.',                       color:'#A13204', accent:'#D28E22' },
-  { id:'sasak',  name:'Wayang Sasak',  origin:'Lombok, NTB',         era:'→ Abad 18 M', desc:'Khas Lombok dengan pengaruh Islam yang kuat. Cerita dari siklus Menak berbahasa Sasak dengan ornamen khas Lombok.',                           color:'#8E4903', accent:'#D28E22' },
+  { id:'kulit',  name:'Wayang Kulit',  origin:'Jawa & Bali',        era:'→ Abad 9 M',  desc:'Terbuat dari kulit kerbau yang ditatah. Dimainkan di balik layar putih dengan sorot lampu. Tokoh utama dari epik Mahabharata dan Ramayana.',  color:'#A13204', accent:'#D28E22', img: wayangKulit },
+  { id:'golek',  name:'Wayang Golek',  origin:'Jawa Barat',         era:'→ Abad 16 M', desc:'Boneka tiga dimensi dari kayu. Cerita berdasarkan kisah Islam seperti Menak. Populer di kalangan masyarakat Sunda dan Betawi.',               color:'#8E4903', accent:'#D28E22', img: wayangGolek },
+  { id:'beber',  name:'Wayang Beber',  origin:'Pacitan & Wonosari',  era:'→ Abad 14 M', desc:'Seni paling kuno. Cerita digambar pada lembaran kertas panjang yang dibentangkan (beber). Hampir punah dan sangat langka.',                  color:'#5E3F02', accent:'#A13204', img: wayangBeber },
+  { id:'klitik', name:'Wayang Klitik', origin:'Jawa Timur',          era:'→ Abad 17 M', desc:'Wayang gepeng dari kayu tipis. Berbunyi "kletik-kletik" saat dimainkan. Menceritakan kisah Damarwulan dan Panji.',                            color:'#451100', accent:'#8E4903', img: wayangKlitik },
+  { id:'orang',  name:'Wayang Orang',  origin:'Jawa Tengah',         era:'→ Abad 18 M', desc:'Pertunjukan wayang dimainkan oleh manusia dengan kostum dan tata rias lengkap. Menggabungkan tari, drama, dan gamelan.',                       color:'#A13204', accent:'#D28E22', img: wayangOrang },
+  { id:'sasak',  name:'Wayang Sasak',  origin:'Lombok, NTB',         era:'→ Abad 18 M', desc:'Khas Lombok dengan pengaruh Islam yang kuat. Cerita dari siklus Menak berbahasa Sasak dengan ornamen khas Lombok.',                           color:'#8E4903', accent:'#D28E22', img: wayangSasak },
 ]
 
 const activeType = ref(types[0])
@@ -56,32 +63,17 @@ const activeType = ref(types[0])
           </div>
         </div>
         <div class="detail-right" :style="{ background: activeType.color }" aria-hidden="true">
-          <div class="visual-pattern">
-            <div v-for="i in 9" :key="i" class="pattern-dot" :style="{ background: activeType.accent, opacity: 0.15 + i * 0.07 }"></div>
-          </div>
+          <img
+            v-if="activeType.img"
+            :src="activeType.img"
+            :alt="activeType.name"
+            class="detail-img"
+          />
+          <div class="detail-img-overlay"></div>
           <span class="visual-name">{{ activeType.name }}</span>
         </div>
       </article>
     </div>
-
-    <ul class="types-grid container" role="list" aria-label="Semua jenis wayang">
-      <li
-        v-for="(type, i) in types" :key="type.id+'-g'"
-        class="type-grid-item reveal"
-        :class="`delay-${i % 3 + 1}`"
-        :style="{ borderTopColor: type.accent }"
-        @click="activeType = type"
-        role="button"
-        :tabindex="0"
-        :aria-label="`Pilih ${type.name}`"
-        @keypress.enter="activeType = type"
-      >
-        <p class="tgi-num">{{ String(i+1).padStart(2,'0') }}</p>
-        <h4 class="tgi-name">{{ type.name }}</h4>
-        <p class="tgi-origin">{{ type.origin }}</p>
-        <p class="tgi-desc">{{ type.desc.substring(0,80) }}…</p>
-      </li>
-    </ul>
   </section>
 </template>
 
@@ -111,24 +103,18 @@ const activeType = ref(types[0])
 .tab-label  { font-weight: 600; font-size: clamp(0.82rem,1.2vw,0.9rem); }
 .tab-origin { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-muted); }
 
-.type-detail { display: grid; grid-template-columns: 1fr 220px; }
+.type-detail { display: grid; grid-template-columns: 1fr 280px; }
 .detail-left { padding: clamp(28px,4vw,48px) clamp(20px,3vw,40px); display: flex; flex-direction: column; gap: 14px; }
 .detail-era  { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; }
 .detail-name { font-size: clamp(1.4rem,3vw,2.4rem); letter-spacing: -0.03em; }
 .detail-desc { font-size: clamp(0.85rem,1.4vw,0.95rem); line-height: 1.75; max-width: 480px; }
 .detail-badge span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; background: var(--darkest); color: var(--cream); padding: 7px 14px; text-transform: uppercase; }
-.detail-right { border-left: var(--thin-line); position:relative; overflow:hidden; min-height: 220px; display:flex; align-items:center; justify-content:center; transition: background 0.4s; }
-.visual-pattern { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; padding: 16px; position:absolute; inset:0; align-content:center; justify-items:center; }
-.pattern-dot { width:36px; height:36px; border-radius:50%; }
-.visual-name { position:relative; z-index:1; font-family:var(--mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.4); writing-mode:vertical-rl; }
+.detail-right { border-left: var(--thin-line); position:relative; overflow:hidden; min-height: 280px; display:flex; align-items:center; justify-content:center; transition: background 0.4s; }
+.visual-name { position:absolute; bottom: 12px; right: 12px; z-index:2; font-family:var(--mono); font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.6); writing-mode:vertical-rl; }
+.detail-img { position:relative; z-index:1; width:100%; height:100%; max-height:320px; object-fit:contain; object-position:center; transition: transform 0.5s ease; filter: sepia(10%) saturate(1.2); padding: 12px; box-sizing:border-box; }
+.detail-right:hover .detail-img { transform: scale(1.04); }
+.detail-img-overlay { position:absolute; inset:0; background: linear-gradient(135deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 100%); z-index:0; }
 
-.types-grid { display: grid; grid-template-columns: repeat(3,1fr); border-left: var(--thick-line); border-top: var(--thick-line); margin-top: clamp(32px,5vw,60px); list-style:none; }
-.type-grid-item { padding: clamp(20px,3vw,32px) clamp(16px,2.5vw,28px); border-right: var(--thin-line); border-bottom: var(--thin-line); border-top: 3px solid transparent; cursor:pointer; transition: background 0.3s, transform 0.3s; }
-.type-grid-item:hover { background: var(--bg); transform: translateY(-4px); }
-.tgi-num    { font-family:var(--mono); font-size:0.62rem; letter-spacing:0.2em; color:var(--accent); margin-bottom:12px; }
-.tgi-name   { font-size:clamp(0.85rem,1.3vw,1rem); font-weight:700; letter-spacing:-0.01em; margin-bottom:4px; text-transform:uppercase; }
-.tgi-origin { font-family:var(--mono); font-size:0.65rem; letter-spacing:0.06em; color:var(--text-muted); margin-bottom:10px; }
-.tgi-desc   { font-size:0.8rem; line-height:1.6; }
 
 @media (max-width: 900px) {
   .types-header  { grid-template-columns: 1fr; gap: 14px; }
@@ -139,9 +125,5 @@ const activeType = ref(types[0])
   .type-tab.active::before { transform: scaleX(1); }
   .type-detail   { grid-template-columns: 1fr; }
   .detail-right  { display: none; }
-  .types-grid    { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width: 480px) {
-  .types-grid { grid-template-columns: 1fr; }
 }
 </style>

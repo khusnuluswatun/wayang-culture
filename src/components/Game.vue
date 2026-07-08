@@ -1,28 +1,31 @@
 <script setup>
 import { ref, computed } from "vue";
+import imgSemar from "../assets/semar.png";
+import imgArjuna from "../assets/arjuna.png";
+import imgBima from "../assets/werkudara.png";
+import imgLogo from "../assets/logo.png";
 
-// Dummy bank soal seputar Wayang & Budaya (bisa kamu pindah ke file json tersendiri nanti)
 const quizData = [
   {
     id: 1,
-    question: "Siapakah tokoh wayang yang dikenal sebagai lambang keadilan dan memiliki darah putih?",
-    image: "", // Isi path aset gambar nanti, misal: "/src/assets/yudhistira.jpg"
-    options: ["Bima", "Arjuna", "Yudhistira", "Gatotkaca"],
-    answer: 2, // Index dari pilihan jawaban yang benar (Yudhistira)
+    question: "Tokoh punakawan sakti yang merupakan titisan Batara Ismaya dan selalu mengasuh para ksatria Pandawa adalah...",
+    image: imgSemar,
+    options: ["Gareng", "Petruk", "Semar", "Bagong"],
+    answer: 2,
   },
   {
     id: 2,
-    question: "Senjata sakti Pasopati adalah milik ksatria Pandawa yang bernama...",
-    image: "",
-    options: ["Arjuna", "Nakula", "Sadewa", "Bima"],
+    question: "Ksatria Pandawa penengah yang mahir memanah dan memiliki senjata pusaka bernama Pasopati adalah...",
+    image: imgArjuna,
+    options: ["Arjuna", "Nakula", "Sadewa", "Yudhistira"],
     answer: 0,
   },
   {
     id: 3,
-    question: "Apa nama gunungan dalam wayang kulit yang menandai dimulainya atau berakhirnya suatu cerita?",
-    image: "",
-    options: ["Kayon", "Blencong", "Kelir", "Kotak"],
-    answer: 0,
+    question: "Ksatria Pandawa yang bertubuh raksasa, memiliki kuku Pancanaka, dan dikenal dengan nama Werkudara adalah...",
+    image: imgBima,
+    options: ["Gatotkaca", "Bima", "Duryudana", "Baladewa"],
+    answer: 1,
   },
 ];
 
@@ -119,9 +122,7 @@ function endGame() {
       <div class="trivia-area">
         <!-- 1. TAMPILAN AWAL (IDLE) -->
         <div v-if="gameState === 'idle'" class="screen-state text-center">
-          <div class="placeholder-image main-logo-placeholder">
-            <span>[ LOGO / TRIVIA IMAGE ASSET ]</span>
-          </div>
+          <img :src="imgLogo" alt="Wasantara Logo" class="main-logo-img" />
           <h3>WAYANG TRIVIA</h3>
           <p>Uji seberapa jauh kamu mengenal ksatria, dewa-dewi, dan kisah pewayangan.</p>
           <button class="btn-action" @click="startGame">MULAI PERMAINAN</button>
@@ -170,9 +171,7 @@ function endGame() {
 
         <!-- 3. TAMPILAN GAME OVER / SELESAI (OVER) -->
         <div v-else-if="gameState === 'over'" class="screen-state text-center">
-          <div class="placeholder-image end-logo-placeholder">
-            <span>[ WAYANG TRIVIA ASSET ]</span>
-          </div>
+          <img :src="imgLogo" alt="Wasantara Logo" class="end-logo-img" />
           <h2 class="end-title">WAYANG TRIVIA</h2>
           <p class="end-desc">Permainan selesai! Kamu berhasil mengumpulkan total skor:</p>
           <div class="final-score">{{ score }} Poin</div>
@@ -304,12 +303,14 @@ function endGame() {
   margin-bottom: 24px;
 }
 
-.main-logo-placeholder,
-.end-logo-placeholder {
+.main-logo-img,
+.end-logo-img {
   height: 120px;
   max-width: 320px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 24px;
+  object-fit: contain;
 }
 
 .question-placeholder {

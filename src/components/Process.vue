@@ -20,7 +20,7 @@ const steps = [
       </div>
     </header>
 
-    <div class="process-timeline container hide-mobile" aria-label="Urutan babak pertunjukan">
+    <div class="process-timeline container" aria-label="Urutan babak pertunjukan">
       <div class="timeline-line" aria-hidden="true"></div>
       <article
         v-for="(step, i) in steps" :key="step.num"
@@ -35,17 +35,6 @@ const steps = [
         </div>
       </article>
     </div>
-
-    <ol class="process-list container show-mobile" aria-label="Urutan babak pertunjukan">
-      <li v-for="step in steps" :key="step.num+'-m'" class="process-list-item reveal">
-        <div class="pli-dot">{{ step.num }}</div>
-        <div class="pli-content">
-          <p class="tc-time">{{ step.time }}</p>
-          <h3 class="tc-title">{{ step.title }}</h3>
-          <p class="tc-desc">{{ step.desc }}</p>
-        </div>
-      </li>
-    </ol>
   </section>
 </template>
 
@@ -78,12 +67,14 @@ const steps = [
 .tc-title { font-size:clamp(0.95rem,1.5vw,1.1rem); font-weight:700; letter-spacing:-0.02em; margin-bottom:8px; transition:color 0.3s; }
 .tc-desc  { font-size:clamp(0.78rem,1.2vw,0.82rem); line-height:1.65; transition:color 0.3s; }
 
-.process-list { list-style:none; display:flex; flex-direction:column; gap:0; padding-top:32px; }
-.process-list-item { display:flex; gap:16px; padding:20px 0; border-bottom:var(--thin-line); }
-.pli-dot { width:44px; height:44px; min-width:44px; background:var(--accent); color:var(--white); font-family:var(--mono); font-size:0.7rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.pli-content { display:flex; flex-direction:column; gap:4px; }
-
 @media (max-width: 900px) {
   .process-header { grid-template-columns:1fr; gap:16px; }
+  .process-timeline { padding:clamp(32px,6vw,60px) 0; }
+  .timeline-line { left: 28px; transform: none; }
+  .timeline-item { grid-template-columns: 56px 1fr; margin-bottom: 12px; }
+  .timeline-item.left  .timeline-card,
+  .timeline-item.right .timeline-card { grid-column: 2; text-align: left; }
+  .timeline-item.left  .timeline-dot,
+  .timeline-item.right .timeline-dot  { grid-column: 1; width:56px; height:56px; font-size:0.65rem; }
 }
 </style>

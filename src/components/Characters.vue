@@ -1,13 +1,19 @@
 <script setup>
 import { ref } from 'vue'
+import imgArjuna    from '../assets/arjuna.png'
+import imgWerkudara from '../assets/werkudara.png'
+import imgKresna    from '../assets/kresna.png'
+import imgDuryudana from '../assets/duryudana.png'
+import imgSrikandi  from '../assets/srikandi.png'
+import imgSemar     from '../assets/semar.png'
 
 const characters = [
-  { id:'arjuna',   name:'Arjuna',    epithet:'Ksatria Pandawa', desc:'Putra ketiga Prabu Pandu, ksatria terbaik Pandawa. Mahir memanah, arif, tampan, dan menjadi murid utama Batara Guru.',             traits:['Kesatria','Bijaksana','Teguh'], side:'Pandawa', color:'#D28E22' },
-  { id:'bima',     name:'Werkudara', epithet:'Ksatria Pandawa', desc:'Bima atau Werkudara, Pandawa kedua bertubuh raksasa dan bertenaga dahsyat. Jujur, teguh, dan pantang menyerah.',                   traits:['Kuat','Jujur','Pemberani'],    side:'Pandawa', color:'#A13204' },
-  { id:'kresna',   name:'Kresna',    epithet:'Titisan Wisnu',   desc:'Raja Dwarawati, awatara Batara Wisnu. Penasehat utama Pandawa, ahli strategi dan diplomasi paling cerdik di tiga dunia.',           traits:['Cerdas','Bijaksana','Karismatik'],side:'Pandawa',color:'#5E3F02' },
-  { id:'duryudana',name:'Duryudana', epithet:'Raja Astina',     desc:'Pemimpin Kurawa yang ambisius dan angkuh. Menginginkan seluruh kekuasaan Astina dan menjadi musuh utama Pandawa.',                  traits:['Ambisius','Keras','Angkuh'],   side:'Kurawa', color:'#180A02' },
-  { id:'srikandi', name:'Srikandi',  epithet:'Ksatria Wanita',  desc:'Istri Arjuna yang perkasa. Seorang pejuang wanita tangguh yang mahir memanah dan berperang di medan Bharatayuda.',                  traits:['Perkasa','Tegas','Setia'],    side:'Pandawa', color:'#8E4903' },
-  { id:'semar',    name:'Semar',     epithet:'Pamong Pandawa',  desc:'Punakawan utama, sesungguhnya Batara Ismaya yang turun ke bumi. Sosoknya merepresentasikan rakyat kecil yang bijaksana.',           traits:['Bijaksana','Lucu','Sakti'],   side:'Pandawa', color:'#451100' },
+  { id:'arjuna',   name:'Arjuna',    epithet:'Ksatria Pandawa', desc:'Putra ketiga Prabu Pandu, ksatria terbaik Pandawa. Mahir memanah, arif, tampan, dan menjadi murid utama Batara Guru.',             traits:['Kesatria','Bijaksana','Teguh'], side:'Pandawa', color:'#D28E22', img: imgArjuna },
+  { id:'bima',     name:'Werkudara', epithet:'Ksatria Pandawa', desc:'Bima atau Werkudara, Pandawa kedua bertubuh raksasa dan bertenaga dahsyat. Jujur, teguh, dan pantang menyerah.',                   traits:['Kuat','Jujur','Pemberani'],    side:'Pandawa', color:'#A13204', img: imgWerkudara },
+  { id:'kresna',   name:'Kresna',    epithet:'Titisan Wisnu',   desc:'Raja Dwarawati, awatara Batara Wisnu. Penasehat utama Pandawa, ahli strategi dan diplomasi paling cerdik di tiga dunia.',           traits:['Cerdas','Bijaksana','Karismatik'],side:'Pandawa',color:'#5E3F02', img: imgKresna },
+  { id:'duryudana',name:'Duryudana', epithet:'Raja Astina',     desc:'Pemimpin Kurawa yang ambisius dan angkuh. Menginginkan seluruh kekuasaan Astina dan menjadi musuh utama Pandawa.',                  traits:['Ambisius','Keras','Angkuh'],   side:'Kurawa', color:'#180A02', img: imgDuryudana },
+  { id:'srikandi', name:'Srikandi',  epithet:'Ksatria Wanita',  desc:'Istri Arjuna yang perkasa. Seorang pejuang wanita tangguh yang mahir memanah dan berperang di medan Bharatayuda.',                  traits:['Perkasa','Tegas','Setia'],    side:'Pandawa', color:'#8E4903', img: imgSrikandi },
+  { id:'semar',    name:'Semar',     epithet:'Pamong Pandawa',  desc:'Punakawan utama, sesungguhnya Batara Ismaya yang turun ke bumi. Sosoknya merepresentasikan rakyat kecil yang bijaksana.',           traits:['Bijaksana','Lucu','Sakti'],   side:'Pandawa', color:'#451100', img: imgSemar },
 ]
 
 const lightboxChar = ref(null)
@@ -38,7 +44,8 @@ const lightboxChar = ref(null)
         @keypress.enter="lightboxChar = char"
       >
         <div class="char-color-block" :style="{ background: char.color }">
-          <span class="char-initial" aria-hidden="true">{{ char.name[0] }}</span>
+          <img v-if="char.img" :src="char.img" :alt="char.name" class="char-img" />
+          <div class="char-img-overlay"></div>
           <span class="char-side-badge">{{ char.side }}</span>
         </div>
         <div class="char-content">
@@ -61,7 +68,8 @@ const lightboxChar = ref(null)
       <div v-if="lightboxChar" class="char-lightbox" @click.self="lightboxChar=null" role="dialog" aria-modal="true" :aria-label="lightboxChar.name">
         <div class="cl-panel">
           <div class="cl-color" :style="{ background: lightboxChar.color }">
-            <span class="cl-initial">{{ lightboxChar.name[0] }}</span>
+            <img v-if="lightboxChar.img" :src="lightboxChar.img" :alt="lightboxChar.name" class="cl-img" />
+            <div class="cl-img-overlay"></div>
           </div>
           <div class="cl-info">
             <p class="label" style="margin-bottom:12px">{{ lightboxChar.epithet }} · {{ lightboxChar.side }}</p>
@@ -92,10 +100,12 @@ const lightboxChar = ref(null)
 .char-card { border-right: var(--thin-line); border-bottom: var(--thin-line); display:flex; flex-direction:column; cursor:pointer; transition: transform 0.3s, box-shadow 0.3s; position:relative; overflow:hidden; }
 .char-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(24,10,2,0.12); z-index:2; }
 
-.char-color-block { height: clamp(100px,15vw,140px); display:flex; align-items:flex-end; justify-content:space-between; padding: 14px 18px; position:relative; transition: height 0.3s; }
-.char-card:hover .char-color-block { height: clamp(110px,17vw,160px); }
-.char-initial { font-family:var(--mono); font-size: clamp(3.5rem,8vw,5rem); font-weight:700; color:rgba(255,255,255,0.12); line-height:1; position:absolute; top:8px; right:14px; }
-.char-side-badge { font-family:var(--mono); font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; background:rgba(0,0,0,0.3); color:rgba(255,255,255,0.8); padding:3px 8px; position:relative; z-index:1; }
+.char-color-block { height: clamp(140px,18vw,180px); display:flex; align-items:flex-end; justify-content:flex-end; padding: 10px 14px; position:relative; overflow:hidden; transition: height 0.3s; }
+.char-card:hover .char-color-block { height: clamp(160px,20vw,210px); }
+.char-img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:bottom center; transition:transform 0.5s; }
+.char-card:hover .char-img { transform: scale(1.06); }
+.char-img-overlay { position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.05) 60%); }
+.char-side-badge { font-family:var(--mono); font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; background:rgba(0,0,0,0.45); color:rgba(255,255,255,0.9); padding:3px 8px; position:relative; z-index:1; }
 
 .char-content { padding: clamp(16px,2.5vw,24px); flex:1; display:flex; flex-direction:column; gap:8px; }
 .char-meta { display:flex; justify-content:space-between; align-items:center; }
@@ -113,8 +123,9 @@ const lightboxChar = ref(null)
 
 .char-lightbox { position:fixed; inset:0; background:rgba(24,10,2,0.85); z-index:9999; display:flex; align-items:center; justify-content:center; padding: clamp(16px,4vw,40px); backdrop-filter:blur(4px); animation:fadeIn 0.3s; }
 .cl-panel { background:var(--bg); max-width:700px; width:100%; display:grid; grid-template-columns:180px 1fr; max-height:80vh; overflow:hidden; }
-.cl-color { position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; min-height:240px; }
-.cl-initial { font-family:var(--mono); font-size:7rem; font-weight:700; color:rgba(255,255,255,0.1); }
+.cl-color { position:relative; overflow:hidden; display:flex; align-items:flex-end; justify-content:center; min-height:240px; }
+.cl-img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:bottom center; }
+.cl-img-overlay { position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 60%); }
 .cl-info { padding: clamp(24px,4vw,40px); display:flex; flex-direction:column; gap:10px; overflow-y:auto; }
 .cl-name { font-size: clamp(1.6rem,4vw,2.2rem); letter-spacing:-0.03em; }
 .cl-desc { font-size:0.88rem; line-height:1.75; flex:1; }
