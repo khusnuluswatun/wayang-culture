@@ -61,7 +61,7 @@ function onMouseMove(e) {
             <span>— Surakarta Style</span>
           </div>
           <div class="image-wrapper">
-            <img src="/src/assets/hero.png" alt="Wayang Kulit tokoh Arjuna, dengan detail ukiran rumit" />
+            <img src="/src/assets/herowayang.png" alt="Wayang Kulit tokoh Arjuna, dengan detail ukiran rumit" />
             <div class="image-overlay" aria-hidden="true"></div>
           </div>
           <div class="frame-corner tl" aria-hidden="true"></div>
