@@ -5,7 +5,8 @@ import imgArjuna from "../assets/arjuna.png";
 import imgBima from "../assets/werkudara.png";
 import imgLogo from "../assets/logo.png";
 
-const quizData = [
+// Bank soal, kalau mau nambah, copas ajh. nanti kalau belum ada gambar null aja
+const allQuizData = [
   {
     id: 1,
     question: "Tokoh punakawan sakti yang merupakan titisan Batara Ismaya dan selalu mengasuh para ksatria Pandawa adalah...",
@@ -40,10 +41,47 @@ const quizData = [
     image: null,
     options: ["Gunungan (Kayon)", "Blencong", "Kelir", "Gedebog"],
     answer: 0,
+  },
+  {
+    id: 6,
+    question: "Siapakah ibu dari Pandawa (Yudhistira, Bima, dan Arjuna)?",
+    image: null, 
+    options: ["Dewi Madrim", "Dewi Kunti", "Dewi Gandari", "Dewi Drupadi"],
+    answer: 1,
+  },
+  {
+    id: 7,
+    question: "Padang kurusetra adalah tempat terjadinya perang besar antara Pandawa dan Kurawa yang dikenal dengan nama...",
+    image: null, 
+    options: ["Ramayana", "Mahabharata", "Bharatayuda", "Babad Alas Wanamarta"],
+    answer: 2,
+  },
+  {
+    id: 8,
+    question: "Raja raksasa dari Alengka yang menculik Dewi Shinta dalam epos Ramayana adalah...",
+    image: null, 
+    options: ["Kumbakarna", "Rahwana", "Indrajit", "Surpanaka"],
+    answer: 1,
+  },
+  {
+    id: 9,
+    question: "Siapakah tokoh pewayangan yang terkenal karena memiliki otot kawat tulang besi dan bisa terbang tanpa sayap?",
+    image: null, 
+    options: ["Gatotkaca", "Hanoman", "Antareja", "Sangkuni"],
+    answer: 0,
+  },
+  {
+    id: 10,
+    question: "Negara yang dipimpin oleh Prabu Yudhistira setelah memenangkan perang dan membangun kerajaan baru adalah...",
+    image: null, 
+    options: ["Astina", "Alengka", "Amarta", "Dwarawati"],
+    answer: 2,
   }
 ];
 
 // State management game
+const maxQuestions = 5; // Jumlah pertanyaan per sesi
+const sessionQuestions = ref([]); // Menyimpan 5 soal acak terpilih
 const score = ref(0);
 const highScore = ref(0);
 const gameState = ref("idle"); // idle | playing | over
@@ -51,14 +89,26 @@ const currentQuestionIndex = ref(0);
 const selectedAnswer = ref(null);
 const isAnswered = ref(false);
 
-// Get data soal saat ini
-const currentQuestion = computed(() => quizData[currentQuestionIndex.value]);
+const currentQuestion = computed(() => sessionQuestions.value[currentQuestionIndex.value]);
+
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 function startGame() {
   score.value = 0;
   currentQuestionIndex.value = 0;
   selectedAnswer.value = null;
   isAnswered.value = false;
+  
+  const randomizedAll = shuffleArray(allQuizData);
+  sessionQuestions.value = randomizedAll.slice(0, maxQuestions);
+  
   gameState.value = "playing";
 }
 
@@ -76,7 +126,7 @@ function nextQuestion() {
   selectedAnswer.value = null;
   isAnswered.value = false;
 
-  if (currentQuestionIndex.value + 1 < quizData.length) {
+  if (currentQuestionIndex.value + 1 < sessionQuestions.value.length) {
     currentQuestionIndex.value++;
   } else {
     endGame();
@@ -115,7 +165,7 @@ function endGame() {
         <h3 class="cp-title">STATUS</h3>
         <div class="cp-tips">
           <p v-if="gameState === 'playing'">
-            Pertanyaan ke: <strong>{{ currentQuestionIndex + 1 }} / {{ quizData.length }}</strong>
+            Pertanyaan ke: <strong>{{ currentQuestionIndex + 1 }} / {{ sessionQuestions.length }}</strong>
           </p>
           <p v-else>Tekan mulai untuk menguji pengetahuan caritamu.</p>
         </div>
@@ -147,6 +197,9 @@ function endGame() {
           <div v-if="currentQuestion.image" class="question-image-wrap">
             <img :src="currentQuestion.image" alt="Soal Gambar" class="question-img" />
           </div>
+          <!-- <div v-else class="placeholder-image question-placeholder">
+            
+          </div> -->
 
           <h3 class="question-text">{{ currentQuestion.question }}</h3>
 
@@ -174,7 +227,7 @@ function endGame() {
             <p v-if="selectedAnswer === currentQuestion.answer" class="feedback text-correct">✓ Jawaban Kamu Benar! (+10 Poin)</p>
             <p v-else class="feedback text-wrong">✗ Kurang Tepat!</p>
             <button class="btn-action" @click="nextQuestion">
-              {{ currentQuestionIndex + 1 === quizData.length ? "LIHAT HASIL" : "PERTANYAAN BERIKUTNYA" }}
+              {{ currentQuestionIndex + 1 === sessionQuestions.length ? "LIHAT HASIL" : "PERTANYAAN BERIKUTNYA" }}
             </button>
           </div>
         </div>
