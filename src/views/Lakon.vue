@@ -1,13 +1,24 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, nextTick, computed } from 'vue'
+
+let obs = null
+
+function applyObserver() {
+  if (!obs) {
+    obs = new IntersectionObserver(
+      entries => entries.forEach(e => { 
+        if (e.isIntersecting) e.target.classList.add('visible') 
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    )
+  }
+  
+  const revealEls = document.querySelectorAll('.reveal, .reveal-left')
+  revealEls.forEach(el => obs.observe(el))
+}
 
 onMounted(() => {
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left')
-  const obs = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  )
-  revealEls.forEach(el => obs.observe(el))
+  applyObserver()
 })
 
 const activeCategory = ref('semua')
@@ -76,16 +87,20 @@ const stories = [
   }
 ]
 
-const filteredStories = ref(stories)
+const filteredStories = computed(() => {
+  if (activeCategory.value === 'semua') return stories
+  return stories.filter(s => s.category === activeCategory.value)
+})
 
 function setCategory(catId) {
   activeCategory.value = catId
-  if (catId === 'semua') {
-    filteredStories.value = stories
-  } else {
-    filteredStories.value = stories.filter(s => s.category === catId)
-  }
 }
+
+watch(activeCategory, async () => {
+  await nextTick() 
+  
+  applyObserver()
+})
 </script>
 
 <template>
