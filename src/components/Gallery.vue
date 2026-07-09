@@ -3,16 +3,14 @@ import { ref } from 'vue'
 import imgArjuna       from '../assets/arjuna.png'
 import imgSemar        from '../assets/semar.png'
 import imgOrang        from '../assets/wayang-orang.jpg'
-import imgBg           from '../assets/background-wayang.jpg'
 import imgPertunjukan1 from '../assets/pertunjukan-wayang.jfif'
 import imgPertunjukan2 from '../assets/pertunjukan-wayang2.jfif'
 import imgPertunjukan3 from '../assets/pertunjukan-wayang3.jpg'
-import imgPertunjukan4 from '../assets/pertunjukan-wayang4.jpg'
 import imgPertunjukan5 from '../assets/pertunjukan-wayang5.jpg'
+import imgBayangan     from '../assets/bayangan-wayang.jpeg'
 import imgGolek1       from '../assets/wayang-golek.jpg'
 import imgGolek2       from '../assets/wayang-golek2.jpg'
 import imgGolek3       from '../assets/wayang-golek3.png'
-import imgGolek4       from '../assets/wayang-golek4.jfif'
 
 const categories = ['Semua', 'Wayang Kulit', 'Wayang Golek', 'Pertunjukan']
 const activeFilter = ref('Semua')
@@ -20,7 +18,7 @@ const activeFilter = ref('Semua')
 const galleryItems = [
   {
     id: 1,
-    title: 'Arjuna Dalam Sorotan',
+    title: 'Arjuna',
     category: 'Wayang Kulit',
     size: 'tall',
     bg: '#A13204',
@@ -42,7 +40,7 @@ const galleryItems = [
     category: 'Wayang Golek',
     size: 'normal',
     bg: '#5E3F02',
-    img: imgGolek3,
+    img: imgGolek1,
     desc: 'Boneka wayang golek tiga dimensi khas tanah Sunda'
   },
   {
@@ -65,7 +63,7 @@ const galleryItems = [
   },
   {
     id: 6,
-    title: 'Ukiran Golek',
+    title: 'Wayang Golek Cepot',
     category: 'Wayang Golek',
     size: 'normal',
     bg: '#5E3F02',
@@ -78,7 +76,7 @@ const galleryItems = [
     category: 'Pertunjukan',
     size: 'wide',
     bg: '#451100',
-    img: imgPertunjukan4,
+    img: imgBayangan,
     desc: 'Cahaya blencong menerangi kelir dan menghidupkan bayangan wayang'
   },
   {
@@ -106,7 +104,7 @@ const galleryItems = [
     category: 'Wayang Golek',
     size: 'normal',
     bg: '#5E3F02',
-    img: imgGolek1,
+    img: imgGolek3,
     desc: 'Wayang golek gaya klasik dengan warna khas tradisi Sunda'
   },
   {

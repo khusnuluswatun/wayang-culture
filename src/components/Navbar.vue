@@ -1,18 +1,19 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import imgLogo from '../assets/logo.png'
 
 const isScrolled = ref(false)
 const menuOpen   = ref(false)
+const route      = useRoute()
 
 const navLinks = [
-  { label: 'Tentang',  href: '#about' },
-  { label: 'Jenis',   href: '#types' },
-  { label: 'Tokoh',   href: '#characters' },
-  { label: 'Galeri',  href: '#gallery' },
-  { label: 'Filosofi',href: '#philosophy' },
-  { label: 'Game',    href: '#game' },
-  { label: 'Peta',    href: '#map' },
+  { label: 'Beranda',   to: '/' },
+  { label: 'Jelajah',   to: '/explore' },
+  { label: 'Filosofi',  to: '/philosophy' },
+  { label: 'Lakon',     to: '/lakon' },
+  { label: 'Peta',      to: '/map' },
+  { label: 'Game',      to: '/game' },
 ]
 
 function onScroll() { isScrolled.value = window.scrollY > 60 }
@@ -31,26 +32,23 @@ onUnmounted(()=> window.removeEventListener('scroll', onScroll))
     aria-label="Menu utama"
   >
     <div class="nav-inner container">
-      <a href="#" class="nav-logo" @click="closeMenu" aria-label="Wasantara — ke atas">
+      <RouterLink to="/" class="nav-logo" @click="closeMenu" aria-label="Wasantara — Beranda">
         <img :src="imgLogo" alt="Wasantara Logo" class="navbar-logo-img" />
         <div class="nav-logo-text-group">
           <span class="logo-text">WASANTARA</span>
-          <span class="logo-sub">PLATFORM EDUKASI</span>
+          <span class="logo-sub">WAYANG NUSANTARA</span>
         </div>
-      </a>
+      </RouterLink>
 
       <ul class="nav-links hide-mobile" role="list">
         <li v-for="link in navLinks" :key="link.label">
-          <a :href="link.href" class="nav-link">{{ link.label }}</a>
+          <RouterLink
+            :to="link.to"
+            class="nav-link"
+            :class="{ 'active': route.path === link.to }"
+          >{{ link.label }}</RouterLink>
         </li>
       </ul>
-
-      <a href="#game" class="nav-cta btn-primary hide-mobile" id="navbar-cta">
-        <span>Jelajahi</span>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </a>
 
       <button
         class="hamburger"
@@ -68,13 +66,12 @@ onUnmounted(()=> window.removeEventListener('scroll', onScroll))
     <div class="mobile-menu" :class="{ open: menuOpen }" aria-hidden="true">
       <ul>
         <li v-for="(link, i) in navLinks" :key="link.label" :style="{ transitionDelay: `${i * 0.04}s` }">
-          <a :href="link.href" @click="closeMenu">
+          <RouterLink :to="link.to" @click="closeMenu">
             <span class="mobile-index">0{{ i + 1 }}</span>
             {{ link.label }}
-          </a>
+          </RouterLink>
         </li>
       </ul>
-      <a href="#game" class="mobile-cta" @click="closeMenu">Main Game Wayang →</a>
     </div>
   </nav>
 </template>
@@ -127,10 +124,12 @@ onUnmounted(()=> window.removeEventListener('scroll', onScroll))
   height:1px; background:var(--cream); transform:scaleX(0);
   transition:transform 0.3s; transform-origin:left;
 }
-.nav-link:hover { color: var(--cream); }
-.nav-link:hover::after { transform: scaleX(1); }
+.nav-link:hover,
+.nav-link.active { color: var(--cream); }
+.nav-link:hover::after,
+.nav-link.active::after { transform: scaleX(1); }
 
-.nav-cta { margin-left: auto; font-size: 0.72rem; padding: 10px 20px; flex-shrink: 0; }
+.nav-cta { margin-left: auto; font-size: 0.72rem; padding: 10px 20px; flex-shrink: 0; text-decoration: none; }
 
 .hamburger {
   display: none; flex-direction: column; gap: 5px;
@@ -171,5 +170,6 @@ onUnmounted(()=> window.removeEventListener('scroll', onScroll))
 @media (max-width: 900px) {
   .hamburger { display: flex; }
   .mobile-menu { display: block; }
+  .hide-mobile { display: none !important; }
 }
 </style>

@@ -28,9 +28,9 @@ function onMouseMove(e) {
         <p class="label reveal">No. 001 — Warisan Dunia UNESCO</p>
 
         <h1 class="hero-title reveal delay-1">
-          <span class="tl">EDUKASI</span>
+          <!-- <span class="tl">EDUKASI</span> -->
           <span class="tl outline">WAYANG</span>
-          <span class="tl gold">WASANTARA</span>
+          <span class="tl gold">NUSANTARA</span>
         </h1>
 
         <div class="hero-desc reveal delay-2">

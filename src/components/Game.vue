@@ -27,6 +27,20 @@ const quizData = [
     options: ["Gatotkaca", "Bima", "Duryudana", "Baladewa"],
     answer: 1,
   },
+  {
+    id: 4,
+    question: "Pusaka andalan Prabu Kresna yang berbentuk cakram bergerigi dan sangat mematikan disebut...",
+    image: null,
+    options: ["Gada Rujakpolo", "Panah Pasopati", "Senjata Cakra", "Tombak Kyai Pleret"],
+    answer: 2,
+  },
+  {
+    id: 5,
+    question: "Pohon kehidupan berukir yang selalu ditancapkan oleh dalang di tengah kelir pada awal dan akhir pertunjukan wayang disebut...",
+    image: null,
+    options: ["Gunungan (Kayon)", "Blencong", "Kelir", "Gedebog"],
+    answer: 0,
+  }
 ];
 
 // State management game
@@ -130,12 +144,8 @@ function endGame() {
 
         <!-- 2. TAMPILAN BERMAIN (PLAYING) -->
         <div v-else-if="gameState === 'playing'" class="quiz-container">
-          <!-- Placeholder gambar soal jika diisi -->
           <div v-if="currentQuestion.image" class="question-image-wrap">
             <img :src="currentQuestion.image" alt="Soal Gambar" class="question-img" />
-          </div>
-          <div v-else class="placeholder-image question-placeholder">
-            <span>[ ASSET GAMBAR UNTUK SOAL NO. {{ currentQuestion.id }} ]</span>
           </div>
 
           <h3 class="question-text">{{ currentQuestion.question }}</h3>
@@ -349,6 +359,7 @@ function endGame() {
   line-height: 1.5;
   margin-bottom: 28px;
   font-weight: 600;
+  color: var(--white);
 }
 
 /* Tombol Aksi */

@@ -87,6 +87,7 @@ const regions = [
 ]
 
 const hoveredRegion = ref(null)
+let hoverTimeout = null
 
 function makeIcon(color) {
   const size = 14
@@ -140,9 +141,19 @@ onMounted(() => {
       </div>`
 
     marker.bindPopup(popupHtml, { maxWidth: 240, className: 'wayang-popup' })
-    marker.on('mouseover', () => { hoveredRegion.value = region.id; marker.openPopup() })
-    marker.on('mouseout',  () => { hoveredRegion.value = null })
-    marker.on('click',     () => marker.openPopup())
+    marker.on('mouseover', () => {
+      clearTimeout(hoverTimeout)
+      hoveredRegion.value = region.id
+      marker.openPopup()
+    })
+    marker.on('mouseout', () => {
+      hoverTimeout = setTimeout(() => { hoveredRegion.value = null }, 300)
+    })
+    marker.on('click', () => {
+      clearTimeout(hoverTimeout)
+      hoveredRegion.value = region.id
+      marker.openPopup()
+    })
     marker.addTo(mapInstance)
   })
 

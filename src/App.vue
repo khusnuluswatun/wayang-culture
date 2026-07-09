@@ -1,49 +1,39 @@
 <script setup>
-import { onMounted } from 'vue'
-import Navbar     from './components/Navbar.vue'
-import Hero       from './components/Hero.vue'
-import Stats      from './components/Stats.vue'
-import About      from './components/About.vue'
-import WayangTypes from './components/WayangTypes.vue'
-import Characters from './components/Characters.vue'
-import Gallery    from './components/Gallery.vue'
-import Philosophy from './components/Philosophy.vue'
-import Process    from './components/Process.vue'
-import IndonesiaMap from './components/IndonesiaMap.vue'
-import Features   from './components/Features.vue'
-import Game       from './components/Game.vue'
-import Footer     from './components/Footer.vue'
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 
-onMounted(() => {
-  const revealEls = document.querySelectorAll('.reveal, .reveal-left')
-  const obs = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
-    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
-  )
-  revealEls.forEach(el => obs.observe(el))
-})
+const route = useRoute()
+
+watch(() => route.path, () => {
+  setTimeout(() => {
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left')
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible')
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    )
+    revealEls.forEach(el => {
+      el.classList.remove('visible')
+      obs.observe(el)
+    })
+  }, 50)
+}, { immediate: true })
 </script>
 
 <template>
   <div id="app-root">
     <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
-
     <Navbar />
-
     <main id="main-content">
-      <Hero />
-      <Stats />
-      <About />
-      <WayangTypes />
-      <Characters />
-      <Gallery />
-      <Philosophy />
-      <Process />
-      <IndonesiaMap />
-      <Game />
-      <Features />
+      <RouterView v-slot="{ Component }">
+        <Transition name="page" mode="out-in">
+          <component :is="Component" />
+        </Transition>
+      </RouterView>
     </main>
-
     <Footer />
   </div>
 </template>
@@ -67,4 +57,17 @@ main { flex: 1; }
   transition: top 0.2s;
 }
 .skip-link:focus { top: 16px; }
+
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
 </style>

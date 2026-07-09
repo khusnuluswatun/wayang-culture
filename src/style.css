@@ -380,3 +380,7 @@ section {
 .leaflet-control-zoom a:hover {
   background: var(--accent) !important;
 }
+
+.leaflet-popup {
+  pointer-events: none;
+}

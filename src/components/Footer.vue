@@ -1,32 +1,35 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import imgLogo from '../assets/logo.png'
 
 const navLinks = [
-  { label:'Tentang',   href:'#about' },
-  { label:'Jenis',     href:'#types' },
-  { label:'Tokoh',     href:'#characters' },
-  { label:'Galeri',    href:'#gallery' },
-  { label:'Filosofi',  href:'#philosophy' },
-  { label:'Proses',    href:'#process' },
-  { label:'Peta',      href:'#map' },
-  { label:'Game',      href:'#game' },
+  { label:'Beranda',    to:'/' },
+  { label:'Jelajah',    to:'/explore' },
+  { label:'Filosofi',   to:'/philosophy' },
+  { label:'Peta',       to:'/map' },
+  { label:'Game',       to:'/game' },
+  { label:'Lakon',      to:'/lakon' },
 ]
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 </script>
 
 <template>
   <footer class="footer" id="footer" role="contentinfo">
     <div class="footer-top">
       <div class="container footer-top-inner">
-        <div class="footer-logo" aria-label="Wasantara">
+        <div class="footer-brand">
           <img :src="imgLogo" alt="Wasantara Logo" class="footer-logo-img" />
+          <p class="footer-tagline">Melestarikan seni budaya Indonesia<br>untuk generasi yang akan datang.</p>
         </div>
-        <p class="footer-tagline">Melestarikan seni budaya Indonesia<br>untuk generasi yang akan datang.</p>
-        <a href="#hero" class="scroll-top-btn" aria-label="Kembali ke atas halaman">
+        <button class="scroll-top-btn" @click="scrollToTop" aria-label="Kembali ke atas halaman">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
             <path d="M12 19V5M5 12l7-7 7 7"/>
           </svg>
           <span>ATAS</span>
-        </a>
+        </button>
       </div>
     </div>
 
@@ -38,7 +41,7 @@ const navLinks = [
           <h4 class="fn-title">Navigasi</h4>
           <ul class="fn-list">
             <li v-for="link in navLinks" :key="link.label">
-              <a :href="link.href" class="fn-link">{{ link.label }}</a>
+              <RouterLink :to="link.to" class="fn-link">{{ link.label }}</RouterLink>
             </li>
           </ul>
         </nav>
@@ -72,8 +75,8 @@ const navLinks = [
 
     <div class="footer-bottom">
       <div class="container footer-bottom-inner">
-        <p class="copyright"><span class="mono">©2026</span> Wasantara : Platform Edukasi Wayang Interaktif Modern</p>
-        <p class="made-with">Dibuat dengan <span class="text-cream" aria-hidden="true">♥</span><span class="visually-hidden">cinta</span> untuk pelestarian budaya bangsa melalui desain (Culture Verse)</p>
+        <p class="copyright"><span class="mono">©2026</span> Wasantara: Platform Edukasi Wayang</p>
+        <p class="made-with">Dibuat dengan <span class="text-cream" aria-hidden="true">♥</span><span class="visually-hidden">cinta</span> untuk pelestarian budaya bangsa (Culture Verse)</p>
       </div>
     </div>
   </footer>
@@ -83,19 +86,18 @@ const navLinks = [
 .footer { background: var(--darkest); }
 
 .footer-top { padding: clamp(48px,8vw,80px) 0 clamp(36px,6vw,60px); border-bottom: 1px solid rgba(210,142,34,0.15); }
-.footer-top-inner { display:grid; grid-template-columns:1fr 1fr auto; gap:clamp(24px,4vw,60px); align-items:end; }
+.footer-top-inner { display:flex; justify-content:space-between; align-items:center; gap:clamp(24px,4vw,60px); }
 
-.footer-logo { display:flex; flex-direction:column; gap:4px; }
+.footer-brand { display:flex; align-items:center; gap:32px; }
 .footer-logo-img {
   height: 48px;
   width: auto;
   object-fit: contain;
-  margin-bottom: 8px;
 }
 
 .footer-tagline { font-size:clamp(0.82rem,1.4vw,0.9rem); line-height:1.7; color:rgba(245,237,216,0.5); }
 
-.scroll-top-btn { display:flex; flex-direction:column; align-items:center; gap:7px; text-decoration:none; color:var(--cream); font-family:var(--mono); font-size:0.58rem; letter-spacing:0.2em; border:1px solid rgba(210,142,34,0.3); padding:14px 12px; transition:background 0.2s; }
+.scroll-top-btn { display:flex; flex-direction:column; align-items:center; gap:7px; cursor:pointer; color:var(--cream); background:transparent; border:1px solid rgba(210,142,34,0.3); font-family:var(--mono); font-size:0.58rem; letter-spacing:0.2em; padding:14px 12px; transition:background 0.2s; }
 .scroll-top-btn:hover { background:rgba(210,142,34,0.1); }
 
 .footer-mid { padding: clamp(36px,6vw,60px) 0; }
@@ -122,12 +124,10 @@ const navLinks = [
 .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
 
 @media (max-width: 900px) {
-  .footer-top-inner  { grid-template-columns:1fr auto; }
   .footer-tagline    { display:none; }
   .footer-mid-inner  { grid-template-columns:1fr 1fr; }
 }
 @media (max-width: 480px) {
-  .footer-top-inner  { grid-template-columns:1fr; }
   .footer-mid-inner  { grid-template-columns:1fr; }
   .footer-bottom-inner { flex-direction:column; text-align:center; }
 }
