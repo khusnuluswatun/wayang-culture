@@ -57,6 +57,3 @@ src
 - Peta persebaran wayang
 - Desain modern dengan pendekatan semi Swiss Style
 - Semantic HTML
-
-## Catatan
-Project ini masih dalam tahap pengembangan sehingga beberapa fitur dan konten dapat berubah seiring proses pengerjaan.
