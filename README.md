@@ -4,7 +4,6 @@ Website interaktif yang mengangkat kekayaan budaya wayang Indonesia dengan pende
 ## Tech Stack
 - Vue 3
 - Vite
-- Tailwind CSS
 - GSAP
 - Lucide Icons
 
