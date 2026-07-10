@@ -1,4 +1,4 @@
-# Wayang — Preserving Heritage Through Design
+# Wasantara: Platform Edukasi Wayang Interaktif Modern
 Website interaktif yang mengangkat kekayaan budaya wayang Indonesia dengan pendekatan visual modern bergaya semi Swiss Style. Proyek ini dibuat untuk memperkenalkan berbagai jenis wayang, filosofi, tokoh, serta persebarannya di Indonesia melalui pengalaman yang lebih menarik dan interaktif.
 
 ## Tech Stack
