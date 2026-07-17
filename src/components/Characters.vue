@@ -54,7 +54,7 @@ const lightboxChar = ref(null)
             <span class="char-epithet">{{ char.epithet }}</span>
           </div>
           <h3 class="char-name">{{ char.name }}</h3>
-          <p class="char-desc">{{ char.desc }}</p>
+          <!-- <p class="char-desc">{{ char.desc }}</p> -->
           <ul class="char-traits" aria-label="Watak">
             <li v-for="trait in char.traits" :key="trait" class="trait-tag">{{ trait }}</li>
           </ul>
