@@ -188,10 +188,10 @@ onUnmounted(() => {
       <div class="map-wrapper" role="application" aria-label="Peta interaktif persebaran wayang Indonesia">
         <div ref="mapEl" class="leaflet-map"></div>
         <div class="map-instructions hide-mobile" aria-hidden="true">
-          <span>🖱 Scroll untuk zoom · Klik titik untuk detail</span>
+          <span>Hover titik untuk detail</span>
         </div>
         <div class="map-instructions show-mobile" aria-hidden="true">
-          <span>Tap titik untuk detail wilayah</span>
+          <span>Hover titik untuk detail wilayah</span>
         </div>
       </div>
 
@@ -204,7 +204,8 @@ onUnmounted(() => {
             v-for="(region, i) in regions"
             :key="region.id"
             class="region-item reveal"
-            :class="[`delay-${(i % 4) + 1}`, { active: hoveredRegion === region.id }]"
+            :class="`delay-${(i % 4) + 1}`"
+            :data-active="hoveredRegion === region.id"
             role="listitem"
             :aria-label="`${region.name}: ${region.types.join(', ')}`"
           >
@@ -318,8 +319,11 @@ onUnmounted(() => {
   gap: 4px;
   list-style: none;
 }
+
 .region-item:hover,
-.region-item.active { background: rgba(161,50,4,0.06); }
+.region-item[data-active="true"] { 
+  background: rgba(161,50,4,0.06); 
+}
 
 .ri-header {
   display: flex;
@@ -341,7 +345,10 @@ onUnmounted(() => {
   border-radius: 50%;
   transition: transform 0.3s;
 }
-.region-item.active .ri-dot { transform: scale(1.6); }
+
+.region-item[data-active="true"] .ri-dot { 
+  transform: scale(1.6); 
+}
 
 .ri-name {
   font-size: 0.85rem;
